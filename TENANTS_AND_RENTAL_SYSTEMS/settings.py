@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
+import dj_database_url
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -90,12 +92,26 @@ WSGI_APPLICATION = 'TENANTS_AND_RENTAL_SYSTEMS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
+DATABASES = {}
+if os.environ.get('DATABASE_URL'):
+    # Production: PostgreSQL (Heroku)
+    DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
+else:
+    # Development: SQLite
+    DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'rent_db',
+        'USER': 'root',
+        'PASSWORD': 'Charleskuria99@@',
+        'HOST': 'localhost',   # or your DB server IP
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
+
 
 
 # Password validation
