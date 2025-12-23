@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
+from accounts.permissions import IsLandlord
+from .models import Tenant
+from .serializers import TenantSerializer
 
-# Create your views here.
+class TenantViewSet(ModelViewSet):
+    queryset = Tenant.objects.all()
+    serializer_class = TenantSerializer
+    permission_classes = [IsLandlord]
