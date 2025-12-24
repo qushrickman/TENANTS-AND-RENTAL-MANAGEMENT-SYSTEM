@@ -4,9 +4,9 @@ from tenants.views import TenantViewSet
 
 from billing.views import LateFeeViewSet
 
-router.register(r'late-fees', LateFeeViewSet, basename='late-fee')
 
 router = DefaultRouter()
+router.register(r'late-fees', LateFeeViewSet, basename='late-fee')
 router.register(r'tenants', TenantViewSet, basename='tenant')
 
 urlpatterns = [

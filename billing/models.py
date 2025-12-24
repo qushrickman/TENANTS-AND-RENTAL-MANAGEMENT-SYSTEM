@@ -1,5 +1,5 @@
 from django.db import models
-from tenants.models import Tenant
+from tenants.models import Tenant, Landlord
 from django.utils import timezone
 
 
