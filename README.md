@@ -1,22 +1,26 @@
-# TENANTS-AND-RENTAL-MANAGEMENT-SYSTEM
+	# TENANTS-AND-RENTAL-MANAGEMENT-SYSTEM
 
 this is a system that will be used by both landlords and tenants to access the personal rent status and statements
 
 Tenants and Rental Management System (API)
 This is a secure django API for managing tenants, rent, payments, and late fees.
 This project is designed for landlords to manage rental operations and for tenants to securely view their rent status and payment history.
+
 Main Features
 Authentication & Authorization
 JWT-based authentication 
 User registration and login
 Role-based access control: Landlord ,Tenant
+
 Tenant Management (Landlord Only)
 Create, view, update, and delete tenants
 View tenant details
+
 Rent Management
 Assign rent to tenants
 Track rent amount, due dates, and status
 Tenants can only view their own rent records
+
 Payment Tracking
 Record rent payments
 View payment history
