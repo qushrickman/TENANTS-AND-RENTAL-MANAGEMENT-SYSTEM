@@ -14,3 +14,17 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('user', 'role')
+
+class RegisterSerializer(serializers.ModelSerializer):
+    role = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'password', 'email', 'role')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        role = validated_data.pop('role')
+        user = User.objects.create_user(**validated_data)
+        Profile.objects.create(user=user, role=role)
+        return user
