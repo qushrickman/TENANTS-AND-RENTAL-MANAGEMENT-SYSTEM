@@ -9,7 +9,7 @@ from .serializers import TenantSerializer, LandlordSerializer
 class TenantViewSet(ModelViewSet):
     queryset = Tenant.objects.all()
     serializer_class = TenantSerializer
-    permission_classes = [IsAuthenticated, IsLandlord]
+    permission_classes = [IsAuthenticated,IsTenant, IsLandlord]
     
 class LandlordViewSet(ModelViewSet):
     queryset = Landlord.objects.all()

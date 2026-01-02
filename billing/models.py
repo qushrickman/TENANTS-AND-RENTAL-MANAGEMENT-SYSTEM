@@ -4,9 +4,6 @@ from django.utils import timezone
 
 
 class Building(models.Model):
-    """
-    Optional 
-    """
     name = models.CharField(max_length=100)
     address = models.TextField()
 

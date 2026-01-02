@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from tenants.views import TenantViewSet, LandlordViewSet
@@ -11,6 +12,9 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+def home(request):
+    return HttpResponse("Welcome to the Tenants and Rental Systems API!")
+
 
 router = DefaultRouter()
 router.register('tenants', TenantViewSet, basename='tenant')
@@ -19,9 +23,12 @@ router.register('payments', PaymentViewSet, basename='payment')
 router.register('late-fees', LateFeeViewSet, basename='late-fee')
 
 urlpatterns = [
+    path("", home, name="home"),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path("api/auth/", include("accounts.urls")),
     
+     
      path('api/auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
      path('api/auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
      path('api/auth/register/', RegisterView.as_view(), name='register'),
