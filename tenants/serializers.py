@@ -4,11 +4,18 @@ from .models import Tenant, Landlord
 class TenantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tenant
-        fields = '__all__'
-        read_only_fields = ('user',)
+        fields = (            
+            'name',
+            'email',
+            'phone',
+        )
+       
         
 class LandlordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Landlord
-        fields = '__all__'
-        read_only_fields = ('user',)
+        fields = (            
+            'name',
+            'email',
+            'phone',
+        )

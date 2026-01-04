@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from tenants import views
 from tenants.views import TenantViewSet, LandlordViewSet
 from accounts.views import RegisterView
 
@@ -21,9 +22,11 @@ router.register('tenants', TenantViewSet, basename='tenant')
 router.register('rents', RentViewSet, basename='rent')
 router.register('payments', PaymentViewSet, basename='payment')
 router.register('late-fees', LateFeeViewSet, basename='late-fee')
-
+router.register('landlords', LandlordViewSet, basename='landlord')
+ 
 urlpatterns = [
     path("", home, name="home"),
+    path('tenants/',views.tenantlist, name='tenant-list'),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path("api/auth/", include("accounts.urls")),

@@ -20,10 +20,10 @@ class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     email = serializers.EmailField()
     
-    role = serializers.ChoiceField(choices=Profile.ROLE_CHOICES,write_only=True)
+    Role = serializers.ChoiceField(choices=Profile.ROLE_CHOICES,write_only=True)
     
     def create(self, validated_data):
-        role = validated_data.pop('role')
+        Role = validated_data.pop('role')
         
         user = User.objects.create_user(
             username=validated_data['username'],
@@ -33,7 +33,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         
         Profile.objects.create(
             user=user,
-            role=role
+            role=Role
             )
         return user
     
@@ -46,7 +46,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             }
 
     def create(self, validated_data):
-        role = validated_data.pop('role')
+        Role = validated_data.pop('Role')
         
         user = User.objects.create_user(
             username=validated_data['username'],
@@ -55,6 +55,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         
         Profile.objects.create(
             user=user,
-            role=role
+            role=Role
             )
         return user
