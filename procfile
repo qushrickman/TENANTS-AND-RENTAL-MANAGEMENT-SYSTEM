@@ -1,0 +1,4 @@
+web:
+gunicorn
+TENANTS_AND_RENTAL_SYSTEMS.wsgi
+:application
