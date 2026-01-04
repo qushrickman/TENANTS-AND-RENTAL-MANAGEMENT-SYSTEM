@@ -18,20 +18,30 @@ def tenantlist(request):
     
 class TenantViewSet(ModelViewSet):
     serializer_class = TenantSerializer
-    permission_classes = [IsAuthenticated, IsLandlord]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Tenant.objects.all()
+        user = self.request.user
+        profile = user.profile
+
+        # Landlord sees their tenants
+        if profile.Role == 'landlord':
+            return Tenant.objects.filter(landlord__user=user)
+
+        # Tenant sees only themselves
+        if profile.Role == 'tenant':
+            return Tenant.objects.filter(user=user)
+
+        return Tenant.objects.none()
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-    
 class LandlordViewSet(ModelViewSet):
     serializer_class = LandlordSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Landlord.objects.all()
+        return Landlord.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

@@ -18,8 +18,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=150)
     password = serializers.CharField(write_only=True)
-    email = serializers.EmailField()
-    
+    email = serializers.EmailField()    
     Role = serializers.ChoiceField(choices=Profile.ROLE_CHOICES,write_only=True)
     
     def create(self, validated_data):
@@ -40,7 +39,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'email', 'role')
+        fields = ('username', 'password', 'email', 'Role')
         extra_kwargs = {
             'password': {'write_only': True}
             }
@@ -55,6 +54,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         
         Profile.objects.create(
             user=user,
-            role=Role
+            Role=Role
             )
         return user
